@@ -10,17 +10,15 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-
-        UserInputSingleton.Instance.UserInputName = string.Empty;
-
     }
     int count = 0;
 
     private async void OnButtonClicked(object sender, EventArgs e)
     {
+        UserInputSingleton userInputSingleton = UserInputSingleton.Instance;
 
-        UserInputSingleton.Instance.UserInputName = summonerNameEntry.Text;
-        string userInputName = UserInputSingleton.Instance.UserInputName;
+        string userInputName = summonerNameEntry.Text;
+
 
         var riotApi = RiotGamesApi.NewInstance("RGAPI-658cd94e-089e-405c-95c5-a4ace9707061");
 
@@ -34,11 +32,8 @@ public partial class MainPage : ContentPage
                 return;
             }
 
-            string outputText = $"\n {UserInputSingleton.Instance.UserInputName} var skrivet med singleton \n {summoner.Name}'s Top 25 Champions: \n{summoner.Name}'s Current level is: {summoner.SummonerLevel}\n\n Champion name   \t Champion Points & rank\n";
+            string outputText = $"\n {userInputSingleton.RandomNumber} var skrivet med singleton \n {summoner.Name}'s Top 25 Champions: \n{summoner.Name}'s Current level is: {summoner.SummonerLevel}\n\n Champion name   \t Champion Points & rank\n";
 
-
-            string SingleTonOutPut = "Detta namn : " + UserInputSingleton.Instance.UserInputName + "vart utskrivet med singleton";
-           
             var masteries = await riotApi.ChampionMasteryV4().GetAllChampionMasteriesAsync(PlatformRoute.EUW1, summoner.Id);
 
             for (int i = 0; i < 25; i++)

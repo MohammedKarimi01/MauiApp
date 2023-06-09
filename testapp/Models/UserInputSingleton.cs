@@ -8,15 +8,16 @@ namespace testapp.Models
 {
     public class UserInputSingleton
     {
-        private static UserInputSingleton instance;
+        private static UserInputSingleton instance = null;
 
         public string UserInputName { get; set; }
+        public int RandomNumber { get; set; }
 
-        private UserInputSingleton()
+        public UserInputSingleton()
         {
-            UserInputName = string.Empty;
-        }
+            RandomNumber = DoSmth();
 
+        }
         public static UserInputSingleton Instance
         {
             get
@@ -28,6 +29,14 @@ namespace testapp.Models
 
                 return instance;
             }
+        }
+        public static int DoSmth()
+        {
+            int rndNumber = 0;
+            Random rnd = new Random();
+            rndNumber = rnd.Next(5000, 50000);
+
+            return rndNumber;
         }
     }
 
